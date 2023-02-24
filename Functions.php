@@ -33,7 +33,6 @@ class Functions
         $mobile         = $this->db->real_escape_string($posted['mobile']);
         $password       = $this->db->real_escape_string($posted['password']);
         $sql = "INSERT INTO users(name, email, mobile, password, password_view) VALUES('".$name."', '".$email."', '".$mobile."', '".md5($password)."', '".($password)."')";
-        // echo $sql;
         $query = $this->db->query($sql);
         if($query == true){
             return true;

@@ -37,7 +37,7 @@ if (isset($_POST['login'])) {
 // Register
 if (isset($_POST['register'])) {
     if ($_POST['name'] == '') {
-        $_SESSION['name'] = '<span style="color: red">Name is Required!</span>';
+        $_SESSION['name'] = '<span style="color: red">Name is Required!</span>'; // echo $sql;
     }
     if ($_POST['mobile'] == '') {
         $_SESSION['mobile'] = '<span style="color: red">Mobile is Required!</span>';
@@ -98,24 +98,24 @@ if (isset($_POST['resetpassword'])) {
     }
 }
 
-
-//  Edit profile 
-if(isset($_POST['editprofile'])){  
+//  Edit profile
+if (isset($_POST['editprofile'])) {
     unset($_POST['editprofile']);
 
-    if(!empty($_FILES['image']['name'])){
+    if (!empty($_FILES['image']['name'])) {
         $folderName = "assets/uploads";
-        $imagesResults = imageUploads($_FILES, $folderName);    // image uploading fun
-        if($imagesResults['status'] == false){
-            $_SESSION['error'] = '<div class="alert alert-danger text-center">' .$imagesResults['msg'].' </div>';
-            header('location: editprofile.php'); die;
-        }else{
+        $imagesResults = imageUploads($_FILES, $folderName); // image uploading fun
+        if ($imagesResults['status'] == false) {
+            $_SESSION['error'] = '<div class="alert alert-danger text-center">' . $imagesResults['msg'] . ' </div>';
+            header('location: editprofile.php');
+            die();
+        } else {
             $_POST['image'] = $imagesResults['imageName'];
         }
     }
 
     $result = $userObj->UpdateProfile($_POST); // Calling update profile
-   
+
     if ($result == true) {
         $_SESSION['success'] = '<div class="alert alert-success text-center"><b>Profile updated successfully!</b></div>';
         header('location: editprofile.php');
@@ -127,26 +127,26 @@ if(isset($_POST['editprofile'])){
     }
 }
 
-
 // Image uploads function
-function imageUploads($imageData, $folderName){
+function imageUploads($imageData, $folderName)
+{
     $fileName = $imageData["image"]["name"];
     $fileSize = $imageData["image"]["size"];
     $fileType = $imageData["image"]["type"];
     $fileTemp = $imageData["image"]["tmp_name"];
     $file_Ext = explode('.', strtolower($fileName));
     $file_Ext = end($file_Ext);
-    $newFileName = date("Ymd").time().".".$file_Ext;
-    $extensions= array("jpeg","jpg","png");
-    if(in_array($file_Ext, $extensions) === false){
-        return array("status" => false, "msg" => "Please choose a JPEG or PNG file."); die;
-    } 
-    elseif($fileSize > 2097152){
-        return array("status" => false, "msg" => "File size must be less or equal 2 MB"); die;
-    } 
-    else{
-        move_uploaded_file($fileTemp, $folderName."/".$newFileName);
-        return array("status" => true, "imageName" => $folderName."/".$newFileName);
+    $newFileName = date("Ymd") . time() . "." . $file_Ext;
+    $extensions = ["jpeg", "jpg", "png"];
+    if (in_array($file_Ext, $extensions) === false) {
+        return ["status" => false, "msg" => "Please choose a JPEG or PNG file."];
+        die();
+    } elseif ($fileSize > 2097152) {
+        return ["status" => false, "msg" => "File size must be less or equal 2 MB"];
+        die();
+    } else {
+        move_uploaded_file($fileTemp, $folderName . "/" . $newFileName);
+        return ["status" => true, "imageName" => $folderName . "/" . $newFileName];
     }
 }
 

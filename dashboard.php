@@ -4,6 +4,8 @@ if(!isset($_SESSION['userdata'])){
     header("location: index.php");
     die();
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,18 +39,7 @@ if(!isset($_SESSION['userdata'])){
     </head>
     <body>
         <div class="container">
-            <!-- <nav class="navbar navbar-light bg-light">
-                <div class="container-fluid">
-                    <a class="navbar-brand">
-                        Welcome,
-                        <?= $_SESSION['userdata']['name']; ?>
-                    </a>
-                    <h3 class="text-center">Dashbaord</h3>
-                    <form class="d-flex">
-                        <a href="logout.php" class="btn btn-outline-danger" type="submit">Logout</a>
-                    </form>
-                </div>
-            </nav> -->
+            
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">Dashboard</a>
@@ -76,10 +67,41 @@ if(!isset($_SESSION['userdata'])){
                     </div>
                 </div>
             </nav>
-
-
-
-
+            <div class="container rounded bg-white mt-5">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Mobile</th>
+                                <th>Address</th>
+                                <th>State</th>
+                                <th>Country</th>
+                                <th>Photos</th>
+                                <th>Registred on</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Doe</td>
+                                <td>john@example.com</td>
+                                <td>9876543210</td>
+                                <td>Delhi</td>
+                                <td>Delhi</td>
+                                <td>India</td>
+                                <td>not found</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
     </body>
